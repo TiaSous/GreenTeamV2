@@ -2,18 +2,18 @@
 #include <ArduinoMqttClient.h>
 #include <ArduinoJson.h>
 
-char ssid[] = "";        // your network SSID
+char ssid[] = "";  // your network SSID
 char pass[] = "";    // your network password
 
 WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
 
 const char broker[] = "";
-const char mqttUser[] = ""; 
+const char mqttUser[] = "";
 const char mqttPassword[] = "";
 int port = 1883;
 
-int led = 16;   // where led is connect (digital)
+int led = 16;  // where led is connect (digital)
 
 void setup() {
   pinMode(led, OUTPUT);
@@ -24,14 +24,15 @@ void setup() {
   }
 
   // config mqtt client
-  mqttClient.setId("ArduinoClient");        
+  mqttClient.setId("ArduinoClient");
   mqttClient.setUsernamePassword(mqttUser, mqttPassword);
-  
+
   // try connect mqtt
   if (!mqttClient.connect(broker, port)) {
     Serial.print("MQTT connection failed! Error code = ");
     Serial.println(mqttClient.connectError());
-    while (1);
+    while (1)
+      ;
   }
 
   // When recieve message
@@ -44,7 +45,6 @@ void loop() {
 }
 
 void onMqttMessage(int messageSize) {
-
   String message;
 
   // read message
@@ -53,18 +53,26 @@ void onMqttMessage(int messageSize) {
   }
 
   // deserialize message
+  const char* msg = Deserialize(message);
+
+  // led action
+  InteractionWithLed(msg);
+}
+
+// deserialize json message
+const char* Deserialize(String message) {
   StaticJsonDocument<200> doc;
   DeserializationError error = deserializeJson(doc, message);
+  return doc["status"];
+}
 
-  const char* msg = doc["status"];
-
-  // make action depend message
-  if (msg) {
-    if (strcmp(msg, "start") == 0) {
+// Turn light on/off depend on value 
+void InteractionWithLed(const char* value) {
+  if (value) {
+    if (strcmp(value, "start") == 0) {
       digitalWrite(led, HIGH);
-    }
-    else if (strcmp(msg, "end") == 0) {
+    } else if (strcmp(value, "end") == 0) {
       digitalWrite(led, LOW);
     }
-  } 
+  }
 }
