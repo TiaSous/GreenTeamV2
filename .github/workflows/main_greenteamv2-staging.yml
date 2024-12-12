@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - greenteamv2-staging
 on:
   pull_request:
     branches:
-      - dev
+      - main
   workflow_dispatch:
 
 jobs:
