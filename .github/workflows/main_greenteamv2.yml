@@ -58,5 +58,4 @@ jobs:
         with:
           app-name: 'greenteamv2'
           slot-name: 'Production'
-          package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_64BFFBDC4AD54D30B4F7E9298A2F50E4 }}

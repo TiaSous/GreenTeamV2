@@ -1,6 +1,7 @@
-import express from "express";
-import mqtt from "mqtt";
-import dotenv from 'dotenv';
+const express = require('express');
+const mqtt = require('mqtt');
+const dotenv = require('dotenv');
+const ConvertToJson = require('./Help/convertToJSON');
 
 dotenv.config();
 
@@ -17,20 +18,16 @@ app.get("/", (req, res) => {
 
 app.get("/arroseur/on", (req, res) => {
   client.publish("arroseur", ConvertToJson({ status: "start" }));
-  res.send("The arroseur is on </br> <a href='http://localhost:3000/arroseur/off'>Turn off the light</a>");
+  res.send("The light is on </br> <a href='http://localhost:3000/arroseur/off'>Turn off the light</a>");
 
 });
 
 app.get("/arroseur/off", (req, res) => {
   client.publish("arroseur", ConvertToJson({ status: "end" }));
-  res.send("The arroseur is off </br> <a href='http://localhost:3000/arroseur/on'>Turn on the light</a>");
+  res.send("The light is off </br> <a href='http://localhost:3000/arroseur/on'>Turn on the light</a>");
 
 })
 
 app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
 })
-
-const ConvertToJson = (obj) => {
-  return JSON.stringify(obj);
-}
