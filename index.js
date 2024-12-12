@@ -24,7 +24,7 @@ app.get("/arroseur/on", (req, res) => {
 
 app.get("/arroseur/off", (req, res) => {
   client.publish("arroseur", ConvertToJson({ status: "end" }));
-  res.send(`The light is off </br> <a href='/arroseur/on'>Turn on the light</a>`);
+  res.send(`The light is off </br> <a href='/arroseur/on'>Turn on the light</a>.`);
 
 })
 
