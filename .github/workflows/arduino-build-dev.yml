@@ -1,0 +1,32 @@
+name: Build arduino code
+
+on:
+    push:
+      branches:
+        - dev
+
+jobs:
+  app-unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+      
+      - name: Install dependencies
+        run: |
+          arduino-cli lib install WiFiNINA
+          arduino-cli lib install ArduinoMqttClient
+          arduino-cli lib install ArduinoJson
+      
+      - name: Configure Arduino Board
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:samd
+          arduino-cli board attach arduino:samd:mkrwifi1010
+
+      - name: Build Arduino Code
+        run: |
+          arduino-cli compile --fqbn arduino:samd:mkrwifi1010 Arduino/arroseur
