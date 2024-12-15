@@ -6,7 +6,7 @@ on:
         - dev
 
 jobs:
-  app-unit-tests:
+  app-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,8 +25,7 @@ jobs:
         run: |
           arduino-cli core update-index
           arduino-cli core install arduino:samd
-          arduino-cli board attach arduino:samd:mkrwifi1010
-
+          
       - name: Build Arduino Code
         run: |
           arduino-cli compile --fqbn arduino:samd:mkrwifi1010 Arduino/arroseur
