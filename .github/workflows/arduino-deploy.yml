@@ -16,12 +16,11 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y lftp
 
       - name: Upload file to FTP server
-        env:
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USERNAME: ${{ secrets.FTP_USER }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASS }}
-        run: |
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "
-          put ./Arduino/arroseur/arroseur.ino -o /home/adminMalenia/GreenTeamV2/Arduino/arroseur/arroseur.ino;
-          bye"
-        
+        uses: matteodf/lftp-upload@v1
+        with:
+            host: ${{ secrets.FTP_HOST }}
+            username: ${{ secrets.FTP_USER }}
+            password: ${{ secrets.FTP_PASS }}
+            forceSsl: "false"
+            localDir: "Arduino/arroseur/arroseur.ino"
+            remoteDir: "/home/adminMalenia/GreenTeamV2/Arduino/arroseur/arroseur.ino"
