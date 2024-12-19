@@ -18,13 +18,13 @@ app.get("/", (req, res) => {
 
 app.get("/arroseur/on", (req, res) => {
   client.publish("arroseur", ConvertToJson({ status: "start" }));
-  res.send(`The light is on </br> <a href='/arroseur/off'>Turn off the light</a>`);
+  res.send(`The light is on </br> <a href='/arroseur/off'>Turn off the light</a>. <br> <a href='/'>Back to home</a>`);
 
 });
 
 app.get("/arroseur/off", (req, res) => {
   client.publish("arroseur", ConvertToJson({ status: "end" }));
-  res.send(`The light is off </br> <a href='/arroseur/on'>Turn on the light</a>.`);
+  res.send(`The light is off </br> <a href='/arroseur/on'>Turn on the light</a>. <br> <a href='/'>Back to home</a>`);
 
 })
 
