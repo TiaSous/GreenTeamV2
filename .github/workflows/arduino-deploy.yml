@@ -3,7 +3,7 @@ name: Deploy arduino code
 on:
   push:
     tags:
-      - "Arduino v*.*.*"
+      - "Arduino_v*.*.*"
 
 jobs:
   arduino-deploy:
