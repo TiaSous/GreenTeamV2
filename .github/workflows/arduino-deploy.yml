@@ -29,4 +29,3 @@ jobs:
           files: |
             Arduino/arroseur/arroseur.ino
           tag_name: ${{ github.ref_name }}
-          release_name: "Release ${GITHUB_REF_NAME}"
