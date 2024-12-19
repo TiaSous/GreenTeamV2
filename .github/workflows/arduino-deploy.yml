@@ -24,6 +24,8 @@ jobs:
           set ftp:ssl-allow no;
           set ftp:use-feat no;
           set ftp:passive-mode off;
+          USER $FTP_USERNAME;
+          PASS $FTP_PASSWORD;
           mirror -R Arduino/arroseur /home/adminMalenia/GreenTeamV2/Arduino/arroseur;
           bye
           "   
