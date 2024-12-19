@@ -22,6 +22,7 @@ jobs:
         run: |
           lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "
           set ftp:ssl-allow no;
-          mirror -R Arduino/arroseur /home/adminMalenia/GreenTeamV2/Arduino/arroseur/arroseur.ino;
+          set ftp:use-feat no;
+          mirror -R Arduino/arroseur /home/adminMalenia/GreenTeamV2/Arduino/arroseur;
           bye
           "   
