@@ -12,13 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - run: cd Arduino/arroseur && ls
-      - name: Upload file to FTP server
-        uses: matteodf/lftp-upload@v1
-        with:
-            host: ${{ secrets.FTP_HOST }}
-            username: ${{ secrets.FTP_USER }}
-            password: ${{ secrets.FTP_PASS }}
-            forceSsl: "false"
-            localDir: "../../Arduino/arroseur"
-            remoteDir: "/home/adminMalenia/GreenTeamV2/Arduino/arroseur"
+      - env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+
+        run: |
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "
+          set ftp:ssl-allow no;
+          mirror -R Arduino/arroseur/arroseur.ino /home/adminMalenia/GreenTeamV2/Arduino/arroseur;
+          bye
+          "   
