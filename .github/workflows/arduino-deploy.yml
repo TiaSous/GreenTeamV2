@@ -20,5 +20,5 @@ jobs:
             username: ${{ secrets.FTP_USER }}
             password: ${{ secrets.FTP_PASS }}
             forceSsl: "false"
-            localDir: "/Arduino/arroseur"
+            localDir: "../../Arduino/arroseur"
             remoteDir: "/home/adminMalenia/GreenTeamV2/Arduino/arroseur"
