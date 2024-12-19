@@ -12,9 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
-
       - name: Upload file to FTP server
         uses: matteodf/lftp-upload@v1
         with:
@@ -22,5 +19,5 @@ jobs:
             username: ${{ secrets.FTP_USER }}
             password: ${{ secrets.FTP_PASS }}
             forceSsl: "false"
-            localDir: "Arduino/arroseur/arroseur.ino"
+            localDir: "./Arduino/arroseur/arroseur.ino"
             remoteDir: "/home/adminMalenia/GreenTeamV2/Arduino/arroseur/arroseur.ino"
