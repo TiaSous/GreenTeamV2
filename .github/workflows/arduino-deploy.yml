@@ -23,7 +23,7 @@ jobs:
           lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "
           set ftp:ssl-allow no;
           set ftp:use-feat no;
-          set ftp:use-passive no;
+          set ftp:passive-mode off;
           mirror -R Arduino/arroseur /home/adminMalenia/GreenTeamV2/Arduino/arroseur;
           bye
           "   
