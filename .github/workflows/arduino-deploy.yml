@@ -2,8 +2,8 @@ name: Deploy arduino code
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "Arduino v*.*.*"
 
 jobs:
   arduino-deploy:
@@ -22,3 +22,11 @@ jobs:
             cd /home/adminMalenia/GreenTeamV2
             git fetch
             git pull
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            Arduino/arroseur/arroseur.ino
+          tag_name: ${{ github.ref_name }}
+          release_name: "Release ${GITHUB_REF_NAME}"
