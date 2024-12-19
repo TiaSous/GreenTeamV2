@@ -22,6 +22,6 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASS }}
         run: |
           lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "
-          put /GreenTeamV2/Arduino/arroseur/arroseur.ino -o /home/adminMalenia/GreenTeamV2/Arduino/arroseur/arroseur.ino;
+          put ./Arduino/arroseur/arroseur.ino -o /home/adminMalenia/GreenTeamV2/Arduino/arroseur/arroseur.ino;
           bye"
         
