@@ -20,12 +20,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
 
         run: |
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST" -e "
-          set ftp:ssl-allow no;
-          set ftp:use-feat no;
-          set ftp:passive-mode off;
-          USER $FTP_USERNAME;
-          PASS $FTP_PASSWORD;
-          mirror -R Arduino/arroseur /home/adminMalenia/GreenTeamV2/Arduino/arroseur;
-          bye
-          "   
+          lftp -e "set ftp:ssl-allow no; set ftp:use-feat no; set ftp:passive-mode off; mirror -R Arduino/arroseur /home/adminMalenia/GreenTeamV2/Arduino/arroseur;quit;" -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_HOST"
